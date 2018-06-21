@@ -1,5 +1,15 @@
 # python_oop.def
 import datetime
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s')
+file_handler = logging.FileHandler('employee.log')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
 
 class Employee:
 
@@ -13,6 +23,8 @@ class Employee:
         self.pay = pay
         # instance variables vs class variables
         Employee.nr_emp += 1
+        logger.info('Created Employee: {} - {}'.format(self.fullname, self.email))
+
 
     @property
     def fullname(self):
