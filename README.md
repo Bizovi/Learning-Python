@@ -12,7 +12,17 @@ Introduction to object oriented programming in `python_oop.py`, where an example
 
 Logging in `python_logging.py` and getting into the good habit of not abusing print statements.
 
-### Part II: Rice's interactive computing in Python
+### Part II: Fluent Python
+Deeply understanding advanced, python-specific features. A nice, rigorous companion to the Advanced Python Course at Telecom Academy.
+* The python **data model** 
+
+### Part III: Advanced Python
+* A review of OOP
+* Error handling
+* Callable classes
+* Function decorators
+
+### Part IV: Rice's interactive computing in Python
 
 * Rock-Paper-Scissors-Lizard-Spock
 * Miscelaneous exercises
