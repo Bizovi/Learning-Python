@@ -1,6 +1,7 @@
 # python_oop.def
 import datetime
 import logging
+import requests
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -92,6 +93,13 @@ class Employee:
 
     def __len__(self):
         return len(self.fullname())
+
+    def monthly_schedule(self, month):
+        response = requests.get(f'http://company.com/{self.last}/{month}')
+        if response.ok:
+            return response.text
+        else:
+            return 'Bad Response!'
 
 
 class Developer(Employee):
