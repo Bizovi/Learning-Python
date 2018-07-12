@@ -1,5 +1,5 @@
 # mutlithreading.py
-# threading
+# threading # only one processor
 # install cygwin and vagrant (as a prerequisite)
 
 # next: async programming and streaming (performance comparison)
