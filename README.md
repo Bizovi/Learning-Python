@@ -9,6 +9,8 @@ Introduction to object oriented programming in `python_oop.py`, where an example
 * dunder methods
 * property decorators
 * python fundamentals
+* unit testing
+* logging
 
 Logging in `python_logging.py` and getting into the good habit of not abusing print statements.
 
@@ -19,8 +21,12 @@ Deeply understanding advanced, python-specific features. A nice, rigorous compan
 ### Part III: Advanced Python
 * A review of OOP
 * Error handling
-* Callable classes
+* Callable classes and Python Data Model
 * Function decorators
+* Deep Copies
+* Context managers
+* Multithreading, Multiprocessing, Async Programming
+
 
 ### Part IV: Rice's interactive computing in Python
 
@@ -28,3 +34,14 @@ Deeply understanding advanced, python-specific features. A nice, rigorous compan
 * Miscelaneous exercises
 * Unfortunately simplegui seems quite incompatible (wrt 3.6)
 * Game oriented development (not the most fitting for me)
+
+
+### Part V: James Powell's presentations and tutorials
+
+* Python Data Model
+* Metaclasses
+* Generators
+* Decorators
+* Context Managers
+
+### Part VI: Learning Python book
