@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show the data</title>
+</head>
+
+<style>
+    table {
+        margin-left: 5%;
+        margin-top: 5%;
+    }
+
+    td {
+        margin-right:15%;
+    }
+</style>
+
+<body>
+
+<h2>Currently enrolled users</h2>
+
+<table>
+{% for user in usr%}
+    <tr>
+        <td>{{ user.first_name }}<td/>
+        <td>{{ user.last_name }}<td/>
+        <td>{{ user.logins }}<td/>
+    </tr>
+{% endfor %}
+</table>
+
+
+</body>
+</html>
