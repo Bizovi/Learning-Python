@@ -1,0 +1,23 @@
+#post-thumbnail {
+  width: 80%;
+  margin-left: 10%;
+  margin-bottom: 6%
+}
+
+#title {
+  color: SteelBlue;
+  text-decoration: none;
+}
+
+h3 {
+  color: DarkSlateGrey;
+  text-decoration: none;
+}
+
+#author {
+  color: grey;
+}
+
+#content {
+  text-align: justify;
+}
