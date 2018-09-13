@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Post
 
 # some fake posts
 posts = [
@@ -48,7 +49,7 @@ def home(request):
         can pass information into the template
     """
     context = {
-        'posts': posts
+        'posts': posts # Post.objects.all()
     }
     return render(request, 'blog/home.html', context)
 
