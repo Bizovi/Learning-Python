@@ -1,3 +1,8 @@
-*.log
-*.csv
-*.txt
+**/*.log
+**/*.csv
+**/*.txt
+**/__pycache__
+**/*.json
+**/*.pyc
+/.idea
+**/*.Rhistory
