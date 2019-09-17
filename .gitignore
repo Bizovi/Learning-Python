@@ -6,3 +6,5 @@
 **/*.pyc
 /.idea
 **/*.Rhistory
+
+01_bucketlist_api/venv/
