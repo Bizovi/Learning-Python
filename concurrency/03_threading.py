@@ -3,7 +3,7 @@
 #   2. sharing resources
 # threading # only one processor
 # parallel programming -> CPU intensive tasks (both have stack trace OS managed)
-#   1. multiprocessing (ulimit and tests) (do not share memory!)
+#   1. concurrency (ulimit and tests) (do not share memory!)
 #   2. mutlithreading (I/O tasks, wait for e.g. http calls)
 #       (shares memory & CPU) on Python Single core
 #       IRQ interrupt -> Queue and executes when its time
@@ -12,7 +12,7 @@
 #   managed by the program
 # profiling to see what bocks (process -> forking / decoupling)
 #   IO bound (threading/async)
-#   CPU bound (multiprocessing)
+#   CPU bound (concurrency)
 #   memory bound
 
 import threading

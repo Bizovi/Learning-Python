@@ -25,4 +25,58 @@ The nitty-gritty details of OOP starting from the basics/fundamentals and
 * Decorators: Wrapping stuff up
 * Context Managers: the set up - tear down metaphor
 
-### Multiprocessing
+
+### Asyncronous programming in Python
+
+* [An Introduction to Asynchronous Programming in Python](https://medium.com/velotio-perspectives/an-introduction-to-asynchronous-programming-in-python-af0189a88bbb)
+* [Async IO in Python: A Complete Walkthrough](https://realpython.com/async-io-python/)
+* [Python Type Hints](https://www.youtube.com/watch?v=pMgmKJyWKn8)
+
+
+An exploration of features provided by `asyncIO` *(concurrent programming
+ being a superset of parallel programming)* and implications on
+  performance for various tasks. Also implies some research and take-aways for
+  when is it useful to implement it, for example **multiprocessing** would be
+  suitable for CPU-bound tasks. 
+  
+> Async IO takes long waiting periods in which 
+  functions would otherwise be blocking and allows other functions to run during 
+  that downtime.
+
+> A coroutine is a function that can suspend its execution before reaching
+> return, and it can indirectly pass control to another coroutine for some time.
+
+### Python type hints
+
+The **implicit** contract, but the problem is maintenance. I have to re
+-establish the types. Monkeytype runs a script/test and identifies the types
+ used, then dumps them.
+
+```bash
+# for type checking
+pip install mypy typing-extensions monkeytype
+mypy 01_items.py  # bunch of errors
+
+monkeytype run mytests.py
+monkeytype stub some.module
+monkeytype apply some.module
+```
+
+```python
+def process(self, items):
+    for item in items:
+        self.append(item.value.id)
+```
+
+### Getting started
+Given an installation of Python 3.7, packages can be isolated in a virtual
+ environment on MacOS/Linux: 
+
+```bash
+#!/bin/bash
+virtualenv venv 
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+
