@@ -4,7 +4,10 @@
 **/__pycache__
 **/*.json
 **/*.pyc
-/.idea
-**/*.Rhistory
 
-01_bucketlist_api/venv/
+/.idea
+
+**/*.Rhistory
+**/venv/
+**/data
+**/*.db
