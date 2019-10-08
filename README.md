@@ -8,7 +8,7 @@ This repository contains code and experiments useful for scientific computing, d
 
 The nitty-gritty details of OOP starting from the basics/fundamentals and
  ending up with more advanced concepts.
- 
+
 * Learning Python - Chapter 27 on **default methods**
 * Fluent Python - Chapter 1 on the power of **default methods** and
  understanding Python's **data model**
@@ -37,10 +37,10 @@ An exploration of features provided by `asyncIO` *(concurrent programming
  being a superset of parallel programming)* and implications on
   performance for various tasks. Also implies some research and take-aways for
   when is it useful to implement it, for example **multiprocessing** would be
-  suitable for CPU-bound tasks. 
-  
-> Async IO takes long waiting periods in which 
-  functions would otherwise be blocking and allows other functions to run during 
+  suitable for CPU-bound tasks.
+
+> Async IO takes long waiting periods in which
+  functions would otherwise be blocking and allows other functions to run during
   that downtime.
 
 > A coroutine is a function that can suspend its execution before reaching
@@ -68,15 +68,18 @@ def process(self, items):
         self.append(item.value.id)
 ```
 
+### Python testing
+
+A brilliant [workshop](https://www.youtube.com/watch?v=LX2ksGYXJ80&t=3750s) by John Leeman and Ryan May. The course page is [here](https://leemangeophysicalllc.github.io/testing-with-python/).
+
+
 ### Getting started
 Given an installation of Python 3.7, packages can be isolated in a virtual
- environment on MacOS/Linux: 
+ environment on MacOS/Linux:
 
 ```bash
 #!/bin/bash
-virtualenv venv 
+virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
-
-
