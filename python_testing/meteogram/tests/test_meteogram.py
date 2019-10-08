@@ -3,14 +3,20 @@ Red-green refactoring pattern
 """
 
 from meteogram import meteogram
+from meteogram.testing import get_recorder
+
 from datetime import datetime
 
 import numpy as np
+import pandas as pd
+from pandas.testing import assert_series_equal
 from numpy.testing import assert_almost_equal, assert_array_almost_equal
 from unittest.mock import patch
 import pytest
 
 from pathlib import Path
+
+recorder = get_recorder(Path(__file__).resolve().parent)
 
 
 # @pytest.fixture
@@ -278,3 +284,75 @@ def test_build_asos_requerst_url(start, end, station, expected):
 
     # Verify
     assert url == expected
+
+
+@recorder.use_cassette('ASOS_AMW_2018032512_2018032612')
+@patch('meteogram.meteogram.current_utc_time', new=mocked_current_utc_time)
+def test_download_asos_data():
+    """Test downloading ASOS data."""
+    # Setup
+    url = meteogram.build_asos_request_url('AMW')
+
+    # Exercise
+    df = meteogram.download_asos_data(url)
+
+    # Verify
+    first_row_truth = pd.Series(
+                      {'station_id': 'AMW',
+                       'station_name': 'Ames',
+                       'latitude_deg': 41.990439,
+                       'longitude_deg': -93.618515,
+                       'UTC': pd.Timestamp('2018-03-25 12:00:00'),
+                       'temperature_degF': 29,
+                       'dewpoint_degF': 24,
+                       'wind_speed_knots': 8,
+                       'wind_direction_degrees': 113})
+
+    assert_series_equal(df.iloc[0], first_row_truth)
+
+
+@recorder.use_cassette('ASOS_AMW_Future')
+def test_download_asos_data_in_future():
+    """Test for correct behavior when asking for non-existant (future) data."""
+    # Setup
+    url = meteogram.build_asos_request_url('AMW',
+                                           datetime(2999, 10, 10, 10),
+                                           datetime(2999, 11, 10, 10))
+
+    # Exercise
+    df = meteogram.download_asos_data(url)
+
+    # Verify
+    assert df.empty
+
+    # Cleanup - none necessary
+
+
+@recorder.use_cassette('ASOS_AMW_Reversed_Dates')
+def test_download_asos_data_start_after_end():
+    """Test for correct behavior when start and end times are reversed."""
+    # Setup
+    start = datetime(2018, 8, 1, 12)
+    end = datetime(2018, 7, 1, 12)
+    url = meteogram.build_asos_request_url('AMW', start, end)
+
+    # Exercise
+    df = meteogram.download_asos_data(url)
+
+    # Verify
+    assert df.empty
+
+    # Cleanup - none necessary
+
+
+def test_download_asos_data_start_after_end_exception():
+    """Test for correct behavior when start and end times are reversed."""
+    # Setup
+    start = datetime(2018, 8, 1, 12)
+    end = datetime(2018, 7, 1, 12)
+
+    # Exercise/Verify
+    with pytest.raises(ValueError):
+        url = meteogram.build_asos_request_url('AMW', start, end)
+
+    # Cleanup - none necessary
