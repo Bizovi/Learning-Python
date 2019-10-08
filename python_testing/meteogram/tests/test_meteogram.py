@@ -7,6 +7,7 @@ from datetime import datetime
 
 import numpy as np
 from numpy.testing import assert_almost_equal, assert_array_almost_equal
+from unittest.mock import patch
 
 
 def test_degF_to_degC_at_freezing():
@@ -114,21 +115,49 @@ def test_wind_components():
     assert_array_almost_equal(true_u, u, 3)
     assert_array_almost_equal(true_v, v, 3)
 
-
-
-
-
-#
-# Exercise 2 - Stop Here
-#
-
 #
 # Instructor led mock example
 #
+def mocked_current_utc_time():
+    """
+    Mock the utc time function for testing with defaults.
+    Allows to use decorator to switch a function with smth else in test function
+    """
+    return datetime(2018, 3, 26, 12)
+
+
+@patch('meteogram.meteogram.current_utc_time', new=mocked_current_utc_time)
+def test_that_mock_works():
+    """
+    Test if we really know how to use a mock
+    1. what we want to replace, string
+    2. what we want to replace it with
+    """
+    # Setup - None
+    # Exercise
+    result = meteogram.current_utc_time()
+
+    # Verify
+    truth = datetime(2018, 3, 26, 12)
+    assert result == truth
+
 
 #
 # Exercise 3
 #
+@patch('meteogram.meteogram.current_utc_time', new=mocked_current_utc_time)
+def test_build_asos_request_url_defaults():
+    # Setup - none
+
+    # Exercise
+    url = meteogram.build_asos_request_url('MLI')
+
+    # Verify
+    truth = ('https://mesonet.agron.iastate.edu/request/asos/1min_dl.php?'
+        'station%5B%5D=MLI&tz=UTC&year1=2018&month1=03&day1=25&hour1=12&minute1=00&'
+        'year2=2018&month2=03&day2=26&hour2=12&minute2=00&vars%5B%5D=tmpf&vars%5B%5D=dwpf&'
+        'vars%5B%5D=sknt&vars%5B%5D=drct&sample=1min&what=view&delim=comma&gis=yes')
+    assert url == truth
 
 #
 # Exercise 3 - Stop Here

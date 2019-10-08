@@ -86,7 +86,7 @@ def exner_function(pressure, reference_pressure=1000):
     return (pressure / reference_pressure)**0.28562982892500527
 
 
-def build_asos_request_url(station, start_date, end_date):
+def build_asos_request_url(station, start_date=None, end_date=None):
     """
     Create a URL to request ASOS data from the Iowa State archive.
 
@@ -95,14 +95,19 @@ def build_asos_request_url(station, start_date, end_date):
     station: str
         Station identifier
     start_date: datetime.datetime
-        Starting time of data to be obtained
+        Starting time of data to be obtained - defaults to 24 hours ago
     end_data: datetime.datetime
-        Ending time of data to be obtained
+        Ending time of data to be obtained - defaults to today
 
     Returns
     -------
     str: URL of the data
     """
+
+    if end_date is None:
+        end_date = current_utc_time()
+    if start_date is None:
+        start_date = end_date - datetime.timedelta(hours=24)
 
     url_str = (f'https://mesonet.agron.iastate.edu/request/asos/'
                f'1min_dl.php?station%5B%5D={station}&tz=UTC&year1='
