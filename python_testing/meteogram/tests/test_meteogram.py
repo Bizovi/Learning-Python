@@ -8,6 +8,21 @@ from datetime import datetime
 import numpy as np
 from numpy.testing import assert_almost_equal, assert_array_almost_equal
 from unittest.mock import patch
+import pytest
+
+from pathlib import Path
+
+
+# @pytest.fixture
+# def load_example_asos():
+#     """
+#     Fixture to load example data
+#     """
+#     example_data_path = Path(__file__).resolve().parent / '..' / '..' / 'staticdata'  # attribute cwd on disk
+#     data_path = example_data_path / 'AMS_example_data.csv'
+#
+#     return meteogram.download_asos_data(data_path)
+
 
 
 def test_degF_to_degC_at_freezing():
@@ -39,9 +54,6 @@ def test_title_case():
     assert actual == desired
 
 
-#
-# Exercise 1
-#
 def test_build_asos_request_url_single_digit_datetimes():
     """Test building URL with single digit month and day."""
     # Setup
@@ -79,9 +91,6 @@ def test_build_asos_request_url_double_digit_datetimes():
         '&vars%5B%5D=sknt&vars%5B%5D=drct&sample=1min&what=view&delim=comma&gis=yes')
     assert result_url == truth_url
 
-#
-# Exercise 1 - Stop Here
-#
 
 def test_does_three_equal_three():
     assert 3 == 3
@@ -115,9 +124,6 @@ def test_wind_components():
     assert_array_almost_equal(true_u, u, 3)
     assert_array_almost_equal(true_v, v, 3)
 
-#
-# Instructor led mock example
-#
 def mocked_current_utc_time():
     """
     Mock the utc time function for testing with defaults.
@@ -159,46 +165,116 @@ def test_build_asos_request_url_defaults():
         'vars%5B%5D=sknt&vars%5B%5D=drct&sample=1min&what=view&delim=comma&gis=yes')
     assert url == truth
 
+
+@patch('meteogram.meteogram.current_utc_time', new=mocked_current_utc_time)
+def test_build_asos_request_url_default_start_only():
+    """
+    Test building URL with default start date.
+    """
+    # Setup
+    end_date = datetime(2019, 3, 25, 12)
+
+    # Exercise
+    url = meteogram.build_asos_request_url('MLI', end_date=end_date)
+
+    # Verify
+    truth = ('https://mesonet.agron.iastate.edu/request/asos/1min_dl.php?'
+             'station%5B%5D=MLI&tz=UTC&year1=2019&month1=03&day1=24&hour1=12'
+             '&minute1=00&year2=2019&month2=03&day2=25&hour2=12&minute2=00&'
+             'vars%5B%5D=tmpf&vars%5B%5D=dwpf&vars%5B%5D=sknt&vars%5B%5D=drct'
+             '&sample=1min&what=view&delim=comma&gis=yes')
+    assert url==truth
+
+    # Cleanup - none required
+
+
+@patch('meteogram.meteogram.current_utc_time', new=mocked_current_utc_time)
+def test_build_asos_request_url_default_end_only():
+    """
+    Test building URL with default end date.
+    """
+    # Setup
+    start_date = datetime(2018, 3, 24, 12)
+
+    # Exercise
+    url = meteogram.build_asos_request_url('MLI', start_date=start_date)
+
+    # Verify
+    truth = ('https://mesonet.agron.iastate.edu/request/asos/1min_dl.php?'
+             'station%5B%5D=MLI&tz=UTC&year1=2018&month1=03&day1=24&hour1=12'
+             '&minute1=00&year2=2018&month2=03&day2=26&hour2=12&minute2=00&'
+             'vars%5B%5D=tmpf&vars%5B%5D=dwpf&vars%5B%5D=sknt&vars%5B%5D=drct'
+             '&sample=1min&what=view&delim=comma&gis=yes')
+    assert url==truth
+
+
+def test_current_utc_time():
+    # Setup - None
+    # Exercise
+    result = meteogram.current_utc_time()
+
+    # Verify (result - smoke test)
+    truth = datetime.utcnow()
+
+    assert result.replace(microsecond=0) == truth.replace(microsecond=0)
+
+
+# @pytest.mark.mpl_image_compare(remove_text=True)
+# def test_plotting_meteogram_default(load_example_asos):
+#     """The pytest will run that function, get results and pass it
+#     as an argument to our function. Could be database, connection, API calls ...
+#     """
+#     # Setup
+#     # url = meteogram.build_asos_request_url('AMW',
+#     #         start_date=datetime(2018, 3, 26),
+#     #         end_date=datetime(2018, 3, 27))
 #
-# Exercise 3 - Stop Here
+#     # need to use a fixure (common setup code)
+#     # df = meteogram.download_asos_data(url) # quite bad to download from web
+#     df = load_example_asos
 #
+#     # Exercise
+#     fig, _, _, _ = meteogram.plot_meteogram(df)
+#
+#     # Verify - Done elsewhere
+#
+#     # Cleanup - none
+
 
 #
-# Exercise 4 - Add any tests that you can to increase the library coverage.
-# think of cases that may not change coverage, but should be tested
-# for as well.
+# Parametrization
 #
+@pytest.mark.parametrize('start, end, station, expected', [
+    # Single digit datetimes
+    (
+        datetime(2018, 1, 5, 1), datetime(2018, 1, 9, 1),
+        'FSD',
+        'https://mesonet.agron.iastate.edu/request/asos/1min_dl.php?'
+        'station%5B%5D=FSD&tz=UTC&year1=2018&month1=01&day1=05&hour1=01'
+        '&minute1=00&year2=2018&month2=01&day2=09&hour2=01&minute2=00&'
+        'vars%5B%5D=tmpf&vars%5B%5D=dwpf&vars%5B%5D=sknt&vars%5B%5D=drct&'
+        'sample=1min&what=view&delim=comma&gis=yes'
+    ),
+    # Defaults
+    (None, None,
+     'MLI',
+     'https://mesonet.agron.iastate.edu/request/asos/1min_dl.php?'
+     'station%5B%5D=MLI&tz=UTC&year1=2018&month1=03&day1=25&hour1=12'
+     '&minute1=00&year2=2018&month2=03&day2=26&hour2=12&minute2=00&'
+     'vars%5B%5D=tmpf&vars%5B%5D=dwpf&vars%5B%5D=sknt&vars%5B%5D=drct'
+     '&sample=1min&what=view&delim=comma&gis=yes'
+     ),
 
-#
-# Exercise 4 - Stop Here
-#
+])
+@patch('meteogram.meteogram.current_utc_time', new=mocked_current_utc_time)
+def test_build_asos_requerst_url(start, end, station, expected):
+    """
+    Test URL building for requests, parametrized
+    """
+    # Setup - done by parametrized fixture
 
-#
-# Instructor led example of image testing
-#
+    # Exercise
+    url = meteogram.build_asos_request_url(station, start, end)
 
-#
-# Exercise 5
-#
-
-#
-# Exercise 5 - Stop Here
-#
-
-#
-# Exercise 6
-#
-
-#
-# Exercise 6 - Stop Here
-#
-
-#
-# Exercise 7
-#
-
-#
-# Exercise 7 - Stop Here
-#
-
-# Demonstration of TDD here (time permitting)
+    # Verify
+    assert url == expected

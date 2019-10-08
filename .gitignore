@@ -13,3 +13,4 @@
 **/*.db
 **/*.mypy
 **/*.egg-info/
+**/.pytest_cache/
