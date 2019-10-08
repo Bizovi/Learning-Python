@@ -12,3 +12,7 @@
 **/data
 **/*.db
 **/*.mypy
+**/*.egg-info/
+**/.pytest_cache/
+**/fixtures/
+**/*.coverage
