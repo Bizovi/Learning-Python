@@ -16,3 +16,5 @@
 **/.pytest_cache/
 **/fixtures/
 **/*.coverage
+
+**/.vscode/
