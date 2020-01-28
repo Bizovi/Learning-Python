@@ -1,21 +1,22 @@
 # 05_async_count.py
 import asyncio
 
+""" A sketch of asynchronous python
+# z() should be an awaitable object (coroutine, .__await__() object iterator)
+async def f(x):
+	y = await z(x)
+	return y
+
+async def g(x):
+	yield x
+"""
 
 async def count():
-	"""It is a coroutine, because it can pass control to another coroutine for
-	some time"""
+	"""It is a coroutine, because it can pass control to 
+	another coroutine for some time"""
 	print("One")
 	await asyncio.sleep(1)  # stands for non-blocking call
 	print("Two")
-
-# z() should be an awaitable object (coroutine, .__await__() object iterator)
-# async def f(x):
-# 	y = await z(x)
-# 	return y
-
-# async def g(x):
-# 	yield x
 
 
 async def main():

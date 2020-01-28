@@ -1,6 +1,5 @@
 **/*.log
 **/*.csv
-**/*.txt
 **/__pycache__
 **/*.json
 **/*.pyc
@@ -19,3 +18,5 @@
 
 **/.vscode/
 **/.DS_Store
+
+**/.mypy_cache/

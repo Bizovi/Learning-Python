@@ -1,19 +1,14 @@
-# mutlithreading.py: concurrency in python
-#   1. order of execution
-#   2. sharing resources
-# threading # only one processor
-# parallel programming -> CPU intensive tasks (both have stack trace OS managed)
-#   1. concurrency (ulimit and tests) (do not share memory!)
-#   2. mutlithreading (I/O tasks, wait for e.g. http calls)
-#       (shares memory & CPU) on Python Single core
-#       IRQ interrupt -> Queue and executes when its time
-#       Content switch (move cpu to a process to other)
-# next: async programming and streaming (performance comparison)
-#   managed by the program
-# profiling to see what bocks (process -> forking / decoupling)
-#   IO bound (threading/async)
-#   CPU bound (concurrency)
-#   memory bound
+"""A more expressive example of threading, emphasizing:
+    * order of execution
+    * sharing resources
+
+Mutlithreading (I/O tasks, wait for e.g. http calls), but
+Async is taking over for these kinds of tasks ...
+    * Shares memory & CPU on a single core
+        - IRQ interrupt -> Queue and executes when its time
+        - Content switch (move cpu from a process to other)
+    * profiling to see what blocks (process -> forking / decoupling)
+"""
 
 import threading
 import logging
@@ -25,11 +20,12 @@ logging.basicConfig(level=logging.DEBUG,
 
 def work_to_do(val):
     print('Execute work in a thread')
-    print('Echo {}'.format(val))
+    print(f'Echo {val}')
     return
 
-# thread interference
+
 class BankAccount:
+    """Thread Interference"""
     def __init__(self):
         self.bal = 0
 
