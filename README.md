@@ -64,7 +64,8 @@ monkeytype apply some.module
 
 ## Python testing
 
-A brilliant [workshop](https://www.youtube.com/watch?v=LX2ksGYXJ80&t=3750s) by John Leeman and Ryan May. The course page is [here](https://leemangeophysicalllc.github.io/testing-with-python/). See the coverage module: `pytest --cov`.
+* A brilliant [workshop](https://www.youtube.com/watch?v=LX2ksGYXJ80&t=3750s) by John Leeman and Ryan May. The course page is [here](https://leemangeophysicalllc.github.io/testing-with-python/). See the coverage module: `pytest --cov`.
+* **Data testing** (processing) with `TDD` and [datatest package](https://datatest.readthedocs.io/en/stable/) from a pydata workshop.
 
 
 ## Object-oriented programming
