@@ -14,3 +14,5 @@ pip install --upgrade pip
 ```
 
 
+> A mock creates methods and attributes on the fly when you require them.
+
