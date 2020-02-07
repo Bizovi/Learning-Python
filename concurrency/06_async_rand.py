@@ -10,7 +10,6 @@ colors = (
 	"\033[35m",  # Magenta
 )
 
-
 async def make_random(idx: int, threshold: int = 6) -> int:
 	"""
 	Main coroutine which runs concurrently across 3 inputs

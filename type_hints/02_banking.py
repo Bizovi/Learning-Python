@@ -78,7 +78,11 @@ class Bank:
 				result.append(True)
 		return result
 
-	def transfer_funds(self, customer_name_from: str, customer_name_to: str, value: int) -> bool:
+	def transfer_funds(self, 
+		customer_name_from: str, 
+		customer_name_to: str, 
+		value: int
+	) -> bool:
 		if customer_name_from not in self.name_to_customer or customer_name_to not in self.name_to_customer:
 			return False
 
