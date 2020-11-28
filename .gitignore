@@ -12,12 +12,13 @@
 **/*.db
 **/*.mypy
 **/*.egg-info/
-**/.pytest_cache/
+
 **/fixtures/
-**/*.coverage
 
 **/.vscode/
 **/.DS_Store
 
 **/.mypy_cache/
+**/*.coverage
+**/.pytest_cache/
 **/.hypothesis/

@@ -1,21 +1,30 @@
-# Learning Python
+# Learning Modern Python
 
-This repository contains **code snippets** and experiments useful for scientific computing, data analysis, API development, databases, and web applications. The focus is on features of the language and various frameworks.
+Python does a lot of things reasonably well, and grace to the **simplicity**, **introspection** capabilities, and **interactivity** is a perfect tool to get a job done. Add to that the amazing ecosystem for scientific computing and data science, and it becomes not just a **glue language**. 
 
+However, despite the Zen of Python and having a way of writing idiomatic code, there is a forest of options to achieve the same goal. Not having a compiler guide the development, it is important to well design and rigorously test the programs. Therefore, the **goals of this repository** are: 
+
+* Explore the principles, metaphors, language design, and modern tooling
+* Focus on learning the **first principles**, such that the right decision can be made in the right context
+* Explore different programming paradigms, tradeoffs of choosing a particular style in python, SOLID and Design Patterns
+* Emphasis on **modern** approaches and latest developments in the python ecosystem
+* Evolve the repository into a resource "I wish I had when was getting started"
+
+
+# Outline
 
 ## Getting started
 
-You'll need a `python` version of `>=3.7`, a decent text editor and terminal. You can use any distribution like `anaconda`, virtual environment package or my favorite `pyenv`. 
+The repository targets `python 3.8^`, a text editor or IDE like `VSCode` and terminal. There are no jupyter notebooks yet, as they deserve their own "chapter". My setup involves `pyenv` for managing python versions and virtual environments, `poetry` + `pip` for dependency management, and `Docker` + `micropipenv` for containerization. 
+
 
 ```bash
-# with pyenv
-pyenv install 3.7.3  # install an isolated python
-pyenv virtualenv learning-python  # create environment
-pip install --upgrade pip  # update pip if not up to date
+pyenv install 3.8.5               # install an isolated python
+pyenv virtualenv learning-python  # create environment & activate
+pip install --upgrade pip         # update pip if not up to date
 
-pip install -r requirements.txt
+pip install -r requirements.txt   # install the packages
 ```
-
 
 
 ## James Powell - So you want to be a python expert
@@ -66,15 +75,3 @@ monkeytype apply some.module
 
 * A brilliant [workshop](https://www.youtube.com/watch?v=LX2ksGYXJ80&t=3750s) by John Leeman and Ryan May. The course page is [here](https://leemangeophysicalllc.github.io/testing-with-python/). See the coverage module: `pytest --cov`.
 * **Data testing** (processing) with `TDD` and [datatest package](https://datatest.readthedocs.io/en/stable/) from a pydata workshop.
-
-
-## Object-oriented programming
-
-The nitty-gritty details of OOP starting from the basics / fundamentals and ending up with more advanced concepts.
-
-* Learning Python - Chapter 27 on **default methods**
-* Fluent Python - Chapter 1 on the power of **default methods** and
- understanding Python's **data model**
-* Corey Schafer - Method decorators and logging
-* Callables, Deep Copies
-

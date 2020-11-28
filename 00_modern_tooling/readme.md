@@ -1,0 +1,4 @@
+* VSCode
+* Jupyter
+* Setup
+* environment
