@@ -1,10 +1,14 @@
 import fibonacci as fib
 import pi_estimation
+import compression
 
 import hypothesis.strategies as st
-from hypothesis import given
+from hypothesis import given, example
 from pytest import approx
+
 from sympy import pi, N
+from sys import getsizeof
+
 
 @given(n=st.integers(min_value=0, max_value=50))
 def test_fibonacci_recursive(n):
@@ -48,3 +52,12 @@ def test_pi_estimation():
 
 def test_pi_reduce():
     assert abs(round(N(pi), 10) - round(pi_estimation.calculate_pi_reduce(int(1e6)), 10)) < 1e-6
+
+
+@given(xs=st.text(st.sampled_from(["A", "C", "G", "T"])))
+@example(xs="TAGGGATTAACCGTTATATATATATAGCCATGGATCGATTATATAGGGATTAACC" * 100)
+def test_compression_encoding_identical_decoding(xs):
+    """Check invariants of compression and decompression like size perservation and id"""
+    compressed = compression.CompressedGene(xs)
+    assert compressed.decompress() == xs
+    assert getsizeof(compressed.decompress()) == getsizeof(xs) 

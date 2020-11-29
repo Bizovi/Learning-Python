@@ -66,7 +66,9 @@ def fib_automemo(n: int) -> int:
 
 
 def fib_iterator(n: int) -> int:
-    """The good old imperative programming does the job, with tuple unpacking"""
+    """The good old imperative programming does the job, with tuple unpacking
+    Idea: Improve perf with numba
+    """
     if n == 0: return n
     _last, _next = 0, 1
     for _ in range(1, n):
