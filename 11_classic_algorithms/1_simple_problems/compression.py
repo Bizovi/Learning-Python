@@ -22,6 +22,9 @@ class CompressedGene(object):
         self._compress(gene)
 
     def _compress(self, gene: str) -> None:
+        """Add the bits with or in increasing powers, effectively building up the integer
+        The bit representation of integer is effectively out compression representation
+        """
         self.bit_string: int = 1
         for nucleotide in gene.upper():
             self.bit_string <<= 2  # shift left two bits before adding (4 := 0100)
@@ -37,6 +40,13 @@ class CompressedGene(object):
                 raise ValueError(f"Invalid Nucleotide: {nucleotide}")
     
     def decompress(self) -> str:
+        """The `>>` operator pushes the bits to the right, eliminates last one
+        & is the bitwise and, used to get the last 2 nonzero bits
+
+        An intuition:
+            Decompress by starting from the smaller digits (low powers), then reverse
+            Because encoding pushed bits to the largest powers
+        """
         gene: str = ""
         for i in range(0, self.bit_string.bit_length() - 1, 2):
             bits: int = self.bit_string >> i & 0b11  # get just the 2 relevant bits
@@ -53,4 +63,8 @@ class CompressedGene(object):
         return gene[::-1]  # reverses the string, slice backwards
     
     def __str__(self) -> str:
-        return self.decompress()
+        return f"""
+            Decoded: {self.decompress()}; 
+            compressed size {getsizeof(self.bit_string)};
+            original size {getsizeof(self.decompress())};
+        """
