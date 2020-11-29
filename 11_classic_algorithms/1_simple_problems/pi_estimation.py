@@ -6,7 +6,9 @@ Note:
 """
 
 from itertools import cycle
-
+import mpmath
+from mpmath import mp
+mp.prec = 30
 
 def calculate_pi(n: int) -> float:
     """TODO(Mihai) <| Visualize the convergence as n grows, compute convergence rates
@@ -25,4 +27,11 @@ def calculate_pi_reduce(n: int) -> float:
     """Same formula, only in functional and immutable style"""
     return sum([
         4/(den*sgn) for den, sgn in zip(range(1, n*2, 2), cycle([1, -1]))
+    ])
+
+
+def calculate_pi_precision(n: int) -> float:
+    """Same formula, only in functional and immutable style + arbitrary precision"""
+    return mpmath.fp.fsum([
+        mpmath.fdiv(4, (den*sgn)) for den, sgn in zip(range(1, n*2, 2), cycle([1, -1]))
     ])

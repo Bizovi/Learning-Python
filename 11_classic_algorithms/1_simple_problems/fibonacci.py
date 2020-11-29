@@ -75,7 +75,9 @@ def fib_iterator(n: int) -> int:
 
 
 def fib_reduce(n: int) -> int:
-    """Tuple is mapped a, b => b, a+b and initializes with 0, 1, iterated n times"""
+    """Exercise 1: method of choice, of course - functional
+    Tuple is mapped a, b => b, a+b and initializes with 0, 1, iterated n times
+    """
     return reduce(
         lambda x, n: (x[1], x[0] + x[1]), range(n), (0, 1)
     )[0]

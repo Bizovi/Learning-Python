@@ -47,4 +47,4 @@ def test_pi_estimation():
 
 
 def test_pi_reduce():
-    assert abs(round(N(pi), 10) - round(pi_estimation.calculate_pi(100000), 10)) < 1e-5
+    assert abs(round(N(pi), 10) - round(pi_estimation.calculate_pi_reduce(int(1e6)), 10)) < 1e-6
