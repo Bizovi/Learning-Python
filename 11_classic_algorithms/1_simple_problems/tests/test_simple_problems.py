@@ -1,8 +1,10 @@
 import fibonacci as fib
+import pi_estimation
 
 import hypothesis.strategies as st
 from hypothesis import given
-
+from pytest import approx
+from sympy import pi, N
 
 @given(n=st.integers(min_value=0, max_value=50))
 def test_fibonacci_recursive(n):
@@ -38,3 +40,11 @@ def test_fibonacci_reducer(n):
 @given(n=st.integers(min_value=0, max_value=10))
 def test_fibonacci_generator(n):
     assert all([list(fib.fib_generator(k))[-1] == fib.binet_approx(k) for k in range(n)])
+
+
+def test_pi_estimation():
+    assert abs(round(N(pi), 10) - round(pi_estimation.calculate_pi(100000), 10)) < 1e-5
+
+
+def test_pi_reduce():
+    assert abs(round(N(pi), 10) - round(pi_estimation.calculate_pi(100000), 10)) < 1e-5
