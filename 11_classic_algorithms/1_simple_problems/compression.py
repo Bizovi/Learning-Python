@@ -3,6 +3,17 @@
 Some interesting resources to dive deeper:
     * David MacKay - Information Theory, Bayesian Inference and Neural Networks
     * SantaFe Complexity Explorer - Introduction to Renormalization
+
+Exercise:
+    1. A simple int type in Python can be used to represent a bit string.
+    2. Ergonomic wrapper around `int` that can be used generically as a sequence of bits 
+    3. Make it iterable and implement __getitem__(). 
+    4. Reimplement CompressedGene, using the wrapper.
+
+    This is tricky, if we want to achieve something more than syntactic sugar.
+    The main issues are scaling, performance and usability (no mental gymnastics on ints)
+    Therefore, we would effectively re-implement BitVector.py or bitarray[C] packages.
+    https://stackoverflow.com/questions/1227163/what-are-some-common-uses-for-bitarrays
 """
 
 from sys import getsizeof
@@ -48,7 +59,7 @@ class CompressedGene(object):
             Because encoding pushed bits to the largest powers
         """
         gene: str = ""
-        for i in range(0, self.bit_string.bit_length() - 1, 2):
+        for i in range(0, self.bit_string.bit_length() - 1, 2):  # use the BitSequence
             bits: int = self.bit_string >> i & 0b11  # get just the 2 relevant bits
             if bits == 0b00:
                 gene += "A"
